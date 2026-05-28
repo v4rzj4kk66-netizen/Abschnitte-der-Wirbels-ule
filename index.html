@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Abschnitte der Wirbelsäule</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:"Segoe UI",sans-serif;
+    background:linear-gradient(to bottom,#edf3f8,#dfe9f2);
+    color:#163457;
+}
+
+h1{
+    text-align:center;
+    font-size:3.2rem;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    font-size:1.4rem;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+.main{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:30px;
+    flex-wrap:wrap;
+    padding:20px;
+}
+
+/* Arbeitsblatt */
+
+.sheet{
+    width:720px;
+    background:white;
+    border-radius:30px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    position:relative;
+}
+
+/* Farbwahl */
+
+.colors{
+    margin-bottom:20px;
+}
+
+.colors h3{
+    margin-bottom:15px;
+}
+
+.color-btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:12px;
+    cursor:pointer;
+    border:4px solid transparent;
+    transition:0.2s;
+}
+
+.color-btn.active{
+    border:4px solid #333;
+}
+
+.blue{ background:#4b91ff; }
+.red{ background:#ff6961; }
+.yellow{ background:#f6c945; }
+.green{ background:#85c76f; }
+.orange{ background:#ff9d3f; }
+
+/* Spine area */
+
+.spine-container{
+    position:relative;
+    height:950px;
+}
+
+/* Bild */
+
+.spine-image{
+    position:absolute;
+    left:70px;
+    top:20px;
+    width:280px;
+}
+
+/* Markierungsflächen */
+
+.zone{
+    position:absolute;
+    left:130px;
+    width:120px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.zone:hover{
+    background:rgba(0,0,0,0.05);
+}
+
+.zone1{ top:30px; height:160px; }
+.zone2{ top:200px; height:360px; }
+.zone3{ top:570px; height:240px; }
+.zone4{ top:810px; height:110px; }
+.zone5{ top:920px; height:60px; }
+
+/* Linien */
+
+.line{
+    position:absolute;
+    left:350px;
+    width:70px;
+    border-top:3px solid #555;
+}
+
+.l1{ top:110px; }
+.l2{ top:360px; }
+.l3{ top:670px; }
+.l4{ top:850px; }
+.l5{ top:945px; }
+
+/* Klammern */
+
+.bracket{
+    position:absolute;
+    left:320px;
+    width:25px;
+    border-right:3px solid #555;
+    border-top:3px solid #555;
+    border-bottom:3px solid #555;
+    border-radius:0 10px 10px 0;
+}
+
+.b1{ top:40px; height:140px; }
+.b2{ top:210px; height:330px; }
+.b3{ top:585px; height:210px; }
+.b4{ top:820px; height:100px; }
+.b5{ top:930px; height:50px; }
+
+/* Dropzones */
+
+.dropzone{
+    position:absolute;
+    right:40px;
+    width:200px;
+    height:80px;
+    border:3px dashed #c4c4c4;
+    border-radius:20px;
+    background:#fafafa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#777;
+    font-weight:600;
+    text-align:center;
+    transition:0.2s;
+}
+
+.dropzone.hover{
+    border-color:#4b91ff;
+    background:#eef5ff;
+}
+
+.d1{ top:65px; }
+.d2{ top:320px; }
+.d3{ top:630px; }
+.d4{ top:820px; }
+.d5{ top:915px; }
+
+/* Sidebar */
+
+.sidebar{
+    width:260px;
+    background:linear-gradient(to bottom,#f3f8fd,#e4edf6);
+    border-radius:30px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.sidebar h2{
+    text-align:center;
+    font-size:2rem;
+}
+
+.drag{
+    padding:18px;
+    margin:22px 0;
+    border-radius:18px;
+    font-weight:700;
+    font-size:1.2rem;
+    cursor:grab;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    user-select:none;
+}
+
+.drag:active{
+    cursor:grabbing;
+}
+
+.drag.blue{ background:#dbe8ff; border:2px dashed #4b91ff; }
+.drag.red{ background:#ffd8d5; border:2px dashed #ff6961; }
+.drag.yellow{ background:#fff0b9; border:2px dashed #f6c945; }
+.drag.green{ background:#d8f0ce; border:2px dashed #85c76f; }
+.drag.orange{ background:#ffe0be; border:2px dashed #ff9d3f; }
+
+/* Buttons */
+
+.buttons{
+    margin-top:25px;
+}
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:15px;
+    margin-right:10px;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.reset{
+    background:#24456a;
+    color:white;
+}
+
+.check{
+    background:#3f9b55;
+    color:white;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+/* Hinweis */
+
+.info{
+    width:920px;
+    margin:30px auto;
+    background:linear-gradient(to right,#edf5fb,#e0eaf4);
+    border-radius:30px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+}
+
+.feedback{
+    margin-top:20px;
+    font-size:1.2rem;
+    font-weight:700;
+}
+
+.correct{
+    color:#2e8b57;
+}
+
+.wrong{
+    color:#c0392b;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Abschnitte der Wirbelsäule</h1>
+
+<div class="subtitle">
+    Markiere die Wirbelknochen in unterschiedlichen Farben<br>
+    und ordne die Begriffe per Drag & Drop zu.
+</div>
+
+<div class="main">
+
+<!-- Arbeitsblatt -->
+
+<div class="sheet">
+
+    <div class="colors">
+
+        <h3>Farbe wählen:</h3>
+
+        <div class="color-btn blue active" data-color="#4b91ff"></div>
+        <div class="color-btn red" data-color="#ff6961"></div>
+        <div class="color-btn yellow" data-color="#f6c945"></div>
+        <div class="color-btn green" data-color="#85c76f"></div>
+        <div class="color-btn orange" data-color="#ff9d3f"></div>
+
+    </div>
+
+    <div class="spine-container">
+
+        <!-- Originalbild -->
+
+        <img src="wirbelsaeule.png"
+             class="spine-image"
+             alt="Wirbelsäule">
+
+        <!-- Markierungszonen -->
+
+        <div class="zone zone1" data-correct="#4b91ff"></div>
+        <div class="zone zone2" data-correct="#ff6961"></div>
+        <div class="zone zone3" data-correct="#f6c945"></div>
+        <div class="zone zone4" data-correct="#85c76f"></div>
+        <div class="zone zone5" data-correct="#ff9d3f"></div>
+
+        <!-- Klammern -->
+
+        <div class="bracket b1"></div>
+        <div class="bracket b2"></div>
+        <div class="bracket b3"></div>
+        <div class="bracket b4"></div>
+        <div class="bracket b5"></div>
+
+        <!-- Linien -->
+
+        <div class="line l1"></div>
+        <div class="line l2"></div>
+        <div class="line l3"></div>
+        <div class="line l4"></div>
+        <div class="line l5"></div>
+
+        <!-- Dropfelder -->
+
+        <div class="dropzone d1"></div>
+        <div class="dropzone d2"></div>
+        <div class="dropzone d3"></div>
+        <div class="dropzone d4"></div>
+        <div class="dropzone d5"></div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button class="check" onclick="checkAnswers()">
+            Überprüfen
+        </button>
+
+        <button class="reset" onclick="resetAll()">
+            Zurücksetzen
+        </button>
+
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+
+</div>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>Begriffe</h2>
+
+    <div class="drag blue" draggable="true">
+        Halswirbelsäule
+    </div>
+
+    <div class="drag red" draggable="true">
+        Brustwirbelsäule
+    </div>
+
+    <div class="drag yellow" draggable="true">
+        Lendenwirbelsäule
+    </div>
+
+    <div class="drag green" draggable="true">
+        Kreuzbein
+    </div>
+
+    <div class="drag orange" draggable="true">
+        Steißbein
+    </div>
+
+</div>
+
+</div>
+
+<div class="info">
+
+    <h2>Hinweis</h2>
+
+    Die Wirbelsäule besteht aus verschiedenen Abschnitten.
+    Jeder Abschnitt besitzt eine unterschiedliche Anzahl an Wirbeln
+    und erfüllt besondere Aufgaben.
+
+</div>
+
+<script>
+
+/* -----------------------
+   Farben auswählen
+------------------------*/
+
+let currentColor = "#4b91ff";
+
+const colorButtons =
+document.querySelectorAll(".color-btn");
+
+colorButtons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+        colorButtons.forEach(b =>
+            b.classList.remove("active"));
+
+        btn.classList.add("active");
+
+        currentColor = btn.dataset.color;
+
+    });
+
+});
+
+/* -----------------------
+   Markieren
+------------------------*/
+
+const zones = document.querySelectorAll(".zone");
+
+zones.forEach(zone => {
+
+    zone.addEventListener("click", () => {
+
+        zone.style.background = currentColor;
+        zone.dataset.selected = currentColor;
+
+    });
+
+});
+
+/* -----------------------
+   Drag & Drop
+------------------------*/
+
+const drags =
+document.querySelectorAll(".drag");
+
+const drops =
+document.querySelectorAll(".dropzone");
+
+drags.forEach(item => {
+
+    item.addEventListener("dragstart", e => {
+
+        e.dataTransfer.setData(
+            "text",
+            item.innerText
+        );
+
+    });
+
+});
+
+drops.forEach(drop => {
+
+    drop.addEventListener("dragover", e => {
+
+        e.preventDefault();
+        drop.classList.add("hover");
+
+    });
+
+    drop.addEventListener("dragleave", () => {
+
+        drop.classList.remove("hover");
+
+    });
+
+    drop.addEventListener("drop", e => {
+
+        e.preventDefault();
+
+        const text =
+        e.dataTransfer.getData("text");
+
+        drop.innerHTML =
+        "<strong>" + text + "</strong>";
+
+        drop.dataset.value = text;
+
+        drop.classList.remove("hover");
+
+    });
+
+});
+
+/* -----------------------
+   Überprüfen
+------------------------*/
+
+function checkAnswers(){
+
+    let correct = true;
+
+    const feedback =
+    document.getElementById("feedback");
+
+    /* Farben prüfen */
+
+    zones.forEach(z => {
+
+        if(z.dataset.selected !== z.dataset.correct){
+            correct = false;
+        }
+
+    });
+
+    /* Begriffe prüfen */
+
+    const solutions = [
+        "Halswirbelsäule",
+        "Brustwirbelsäule",
+        "Lendenwirbelsäule",
+        "Kreuzbein",
+        "Steißbein"
+    ];
+
+    drops.forEach((d,index) => {
+
+        if(d.dataset.value !== solutions[index]){
+            correct = false;
+        }
+
+    });
+
+    if(correct){
+
+        feedback.innerHTML =
+        "✅ Super! Alles ist richtig.";
+
+        feedback.className =
+        "feedback correct";
+
+    }else{
+
+        feedback.innerHTML =
+        "❌ Noch nicht alles richtig. Überprüfe deine Zuordnungen und Farben.";
+
+        feedback.className =
+        "feedback wrong";
+
+    }
+
+}
+
+/* -----------------------
+   Zurücksetzen
+------------------------*/
+
+function resetAll(){
+
+    zones.forEach(z => {
+
+        z.style.background = "transparent";
+        z.dataset.selected = "";
+
+    });
+
+    drops.forEach(d => {
+
+        d.innerHTML = "";
+        d.dataset.value = "";
+
+    });
+
+    document.getElementById("feedback")
+    .innerHTML = "";
+
+}
+
+</script>
+
+</body>
+</html>

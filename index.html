@@ -22,6 +22,11 @@ body{
     font-family:"Segoe UI",sans-serif;
     background:linear-gradient(to bottom,#edf3f8,#dfe9f2);
     color:#163457;
+
+    /* gesamte Ansicht kleiner */
+    zoom:0.72;
+
+    overflow-x:hidden;
 }
 
 h1{
@@ -42,18 +47,27 @@ h1{
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    gap:30px;
-    flex-wrap:wrap;
-    padding:20px;
+
+    /* mehr Abstand zwischen Wirbelsäule und Legende */
+    gap:40px;
+
+    flex-wrap:nowrap;
+
+    padding:15px;
+
+    /* sorgt dafür, dass alles in eine Ansicht passt */
+    width:1450px;
+
+    margin:auto;
 }
 
 /* Hauptbereich */
 
 .sheet{
-    width:700px;
+    width:620px;
     background:white;
     border-radius:30px;
-    padding:30px;
+    padding:25px;
     box-shadow:0 10px 30px rgba(0,0,0,0.15);
     position:relative;
 }
@@ -93,110 +107,128 @@ h1{
 
 .spine-container{
     position:relative;
-    height:980px;
+    height:820px;
 }
 
 .spine-image{
     position:absolute;
-    left:65px;
+    left:55px;
     top:10px;
-    width:270px;
+
+    /* Bild kleiner */
+    width:230px;
 }
 
 /* Markierungszonen */
 
 .zone{
     position:absolute;
-    left:120px;
-    width:130px;
+    left:105px;
+    width:110px;
     border-radius:20px;
     cursor:pointer;
-    transition:0.2s;
 }
 
-.zone:hover{
-    background:rgba(0,0,0,0.04);
-}
-
-.zone1{ top:20px; height:160px; }
-.zone2{ top:190px; height:350px; }
-.zone3{ top:550px; height:230px; }
-.zone4{ top:790px; height:100px; }
-.zone5{ top:900px; height:55px; }
+.zone1{ top:18px; height:135px; }
+.zone2{ top:160px; height:290px; }
+.zone3{ top:455px; height:195px; }
+.zone4{ top:660px; height:85px; }
+.zone5{ top:748px; height:45px; }
 
 /* Klammern */
 
 .bracket{
     position:absolute;
-    left:320px;
-    width:25px;
+    left:280px;
+    width:22px;
+
     border-right:3px solid #555;
     border-top:3px solid #555;
     border-bottom:3px solid #555;
+
     border-radius:0 10px 10px 0;
 }
 
-.b1{ top:35px; height:140px; }
-.b2{ top:205px; height:320px; }
-.b3{ top:565px; height:200px; }
-.b4{ top:800px; height:90px; }
-.b5{ top:910px; height:45px; }
+.b1{ top:28px; height:118px; }
+.b2{ top:170px; height:265px; }
+.b3{ top:465px; height:175px; }
+.b4{ top:665px; height:78px; }
+.b5{ top:752px; height:40px; }
 
 /* Linien */
 
 .line{
     position:absolute;
-    left:345px;
-    width:70px;
+    left:305px;
+    width:60px;
     border-top:3px solid #555;
 }
 
-.l1{ top:105px; }
-.l2{ top:360px; }
-.l3{ top:655px; }
-.l4{ top:845px; }
-.l5{ top:930px; }
+.l1{ top:88px; }
+.l2{ top:300px; }
+.l3{ top:550px; }
+.l4{ top:700px; }
+.l5{ top:772px; }
+
 
 /* Dropfelder */
 
 .dropzone{
+
     position:absolute;
-    right:35px;
-    width:210px;
-    height:82px;
+
+    right:25px;
+
+    width:190px;
+
+    height:70px;
+
     border:3px dashed #c7c7c7;
+
     border-radius:20px;
+
     background:#fafafa;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     color:#777;
+
     font-weight:600;
+
     text-align:center;
-    transition:0.2s;
 }
 
-.dropzone.hover{
-    border-color:#4b91ff;
-    background:#eef5ff;
-}
-
-.d1{ top:60px; }
-.d2{ top:320px; }
-.d3{ top:615px; }
-.d4{ top:805px; }
-.d5{ top:890px; }
+.d1{ top:45px; }
+.d2{ top:255px; }
+.d3{ top:520px; }
+.d4{ top:675px; }
+.d5{ top:748px; }
 
 /* Sidebar */
 
 .sidebar{
-    width:270px;
+
+    /* feste Position rechts */
+    position:sticky;
+
+    top:20px;
+
+    align-self:flex-start;
+
+    width:260px;
+
     background:linear-gradient(to bottom,#f3f8fd,#e4edf6);
+
     border-radius:30px;
+
     padding:25px;
+
     box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
-
 .sidebar h2{
     text-align:center;
     font-size:2rem;
@@ -300,24 +332,35 @@ button:hover{
 /* Hinweis */
 
 .info{
-    width:940px;
-    margin:25px auto 40px;
+
+    width:920px;
+
+    margin:20px auto 35px;
+
     background:linear-gradient(to right,#edf5fb,#e0eaf4);
+
     border-radius:30px;
-    padding:28px;
+
+    padding:24px;
+
     box-shadow:0 10px 25px rgba(0,0,0,0.12);
 }
 
 .info h2{
-    margin-top:0;
-    font-size:2rem;
+    font-size:1.7rem;
 }
 
 .info p{
-    font-size:1.2rem;
-    line-height:1.8;
+    font-size:1.05rem;
+    line-height:1.7;
 }
+@media (max-width: 1400px){
 
+    body{
+        zoom:0.65;
+    }
+
+}
 </style>
 </head>
 

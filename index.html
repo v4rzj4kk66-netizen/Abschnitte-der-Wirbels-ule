@@ -64,7 +64,7 @@ h1{
 /* Hauptbereich */
 
 .sheet{
-    width:620px;
+    width:760px;
     background:white;
     border-radius:30px;
     padding:25px;
@@ -107,109 +107,69 @@ h1{
 
 .spine-container{
     position:relative;
-    height:1150px;
+    height:1100px;
 }
 
 .spine-image{
     position:absolute;
 
-    left:5px;
+    left:20px;
     top:20px;
 
-    height:1050px;
+    height:980px;
     width:auto;
 }
 
 /* Markierungszonen */
 
 .zone{
-    position:absolute;
-    left:105px;
-    width:110px;
-    border-radius:20px;
-    cursor:pointer;
+    left:45px;
+    width:210px;
 }
 
+/* Halswirbelsäule */
 .zone1{
-    top:160px;
-    height:120px;
+    top:15px;
+    height:175px;
 }
 
+/* Brustwirbelsäule */
 .zone2{
-    top:285px;
-    height:520px;
+    top:195px;
+    height:495px;
 }
 
+/* Lendenwirbelsäule */
 .zone3{
-    top:810px;
+    top:695px;
+    height:225px;
+}
+
+/* Kreuzbein */
+.zone4{
+    top:925px;
     height:190px;
 }
 
-.zone4{
-    top:995px;
-    height:120px;
-}
-
+/* Steißbein */
 .zone5{
     top:1115px;
-    height:90px;
+    height:95px;
 }
 
-/* Klammern */
-
-.bracket{
-    position:absolute;
-    left:285px;
-    width:22px;
-
-    border-right:3px solid #555;
-    border-top:3px solid #555;
-    border-bottom:3px solid #555;
-
-    border-radius:0 10px 10px 0;
-}
-
-.b1{
-    top:155px;
-    height:125px;
-}
-
-.b2{
-    top:290px;
-    height:510px;
-}
-
-.b3{
-    top:815px;
-    height:180px;
-}
-
-.b4{
-    top:1000px;
-    height:110px;
-}
-
-.b5{
-    top:1115px;
-    height:85px;
-}
 /* Linien */
 
 .line{
     position:absolute;
-    left:305px;
-    width:60px;
+    left:350px;
+    width:55px;
     border-top:3px solid #555;
 }
 
-.l1{ top:220px; }
-
-.l2{ top:545px; }
-
-.l3{ top:905px; }
-
-.l4{ top:1055px; }
-
+.l1{ top:105px; }
+.l2{ top:440px; }
+.l3{ top:800px; }
+.l4{ top:1020px; }
 .l5{ top:1160px; }
 
 
@@ -244,15 +204,15 @@ h1{
     text-align:center;
 }
 
-.d1{ top:70px; }
+.d1{ top:65px; }
 
-.d2{ top:350px; }
+.d2{ top:400px; }
 
-.d3{ top:690px; }
+.d3{ top:760px; }
 
-.d4{ top:920px; }
+.d4{ top:980px; }
 
-.d5{ top:1055px; }
+.d5{ top:1120px; }
 
 /* Sidebar */
 
@@ -470,14 +430,6 @@ und ordne die Begriffe per Drag & Drop zu.
 
 <div class="zone zone5"
      data-correct="#ff9d3f"></div>
-
-<!-- Klammern -->
-
-<div class="bracket b1"></div>
-<div class="bracket b2"></div>
-<div class="bracket b3"></div>
-<div class="bracket b4"></div>
-<div class="bracket b5"></div>
 
 <!-- Linien -->
 

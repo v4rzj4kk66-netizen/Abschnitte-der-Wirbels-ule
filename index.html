@@ -123,38 +123,36 @@ h1{
 /* Markierungszonen */
 
 .zone{
-    left:45px;
-    width:210px;
+    position:absolute;
+    left:40px;
+    width:220px;
+    cursor:pointer;
+    border-radius:15px;
 }
 
-/* Halswirbelsäule */
 .zone1{
-    top:15px;
-    height:175px;
-}
-
-/* Brustwirbelsäule */
-.zone2{
-    top:195px;
-    height:495px;
-}
-
-/* Lendenwirbelsäule */
-.zone3{
-    top:695px;
-    height:225px;
-}
-
-/* Kreuzbein */
-.zone4{
-    top:925px;
+    top:20px;
     height:190px;
 }
 
-/* Steißbein */
+.zone2{
+    top:210px;
+    height:520px;
+}
+
+.zone3{
+    top:730px;
+    height:250px;
+}
+
+.zone4{
+    top:980px;
+    height:280px;
+}
+
 .zone5{
-    top:1115px;
-    height:95px;
+    top:1260px;
+    height:150px;
 }
 
 /* Linien */
@@ -166,11 +164,15 @@ h1{
     border-top:3px solid #555;
 }
 
-.l1{ top:105px; }
-.l2{ top:440px; }
-.l3{ top:800px; }
-.l4{ top:1020px; }
-.l5{ top:1160px; }
+.l1{ top:150px; }
+
+.l2{ top:580px; }
+
+.l3{ top:1040px; }
+
+.l4{ top:1330px; }
+
+.l5{ top:1510px; }
 
 
 /* Dropfelder */
@@ -204,16 +206,25 @@ h1{
     text-align:center;
 }
 
-.d1{ top:65px; }
+.d1{
+    top:90px;
+}
 
-.d2{ top:400px; }
+.d2{
+    top:520px;
+}
 
-.d3{ top:760px; }
+.d3{
+    top:980px;
+}
 
-.d4{ top:980px; }
+.d4{
+    top:1270px;
+}
 
-.d5{ top:1120px; }
-
+.d5{
+    top:1450px;
+}
 /* Sidebar */
 
 .sidebar{
@@ -416,21 +427,12 @@ und ordne die Begriffe per Drag & Drop zu.
 
 <!-- Farbflächen -->
 
-<div class="zone zone1"
-     data-correct="#4b91ff"></div>
-
-<div class="zone zone2"
-     data-correct="#ff6961"></div>
-
-<div class="zone zone3"
-     data-correct="#f6c945"></div>
-
-<div class="zone zone4"
-     data-correct="#85c76f"></div>
-
-<div class="zone zone5"
-     data-correct="#ff9d3f"></div>
-
+<div class="zone zone1" data-correct="#4b91ff"></div>
+<div class="zone zone2" data-correct="#ff6961"></div>
+<div class="zone zone3" data-correct="#f6c945"></div>
+<div class="zone zone4" data-correct="#85c76f"></div>
+<div class="zone zone5" data-correct="#ff9d3f"></div>
+   
 <!-- Linien -->
 
 <div class="line l1"></div>
@@ -533,21 +535,31 @@ besondere Aufgaben.
 
 let currentColor = "#4b91ff";
 
-const colorButtons =
-document.querySelectorAll(".color-btn");
+document.querySelectorAll(".color-btn")
+.forEach(btn => {
 
-colorButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
 
-btn.addEventListener("click", () => {
+        document.querySelectorAll(".color-btn")
+        .forEach(b => b.classList.remove("active"));
 
-colorButtons.forEach(b =>
-b.classList.remove("active"));
+        btn.classList.add("active");
 
-btn.classList.add("active");
-
-currentColor = btn.dataset.color;
+        currentColor = btn.dataset.color;
+    });
 
 });
+
+document.querySelectorAll(".zone")
+.forEach(zone => {
+
+    zone.addEventListener("click", () => {
+
+        zone.style.backgroundColor = currentColor;
+        zone.style.opacity = "0.35";
+        zone.dataset.selected = currentColor;
+
+    });
 
 });
 
@@ -625,24 +637,57 @@ drop.classList.remove("hover");
 
 function checkAnswers(){
 
-let correct = true;
+    let correct = true;
 
-const feedback =
-document.getElementById("feedback");
+    document.querySelectorAll(".zone")
+    .forEach(zone => {
 
-/* Farben */
+        if(zone.dataset.selected !==
+           zone.dataset.correct){
 
-zones.forEach(z => {
+            correct = false;
+        }
 
-if(z.dataset.selected !==
-   z.dataset.correct){
+    });
 
-correct = false;
+    const solutions = [
+        "Halswirbelsäule",
+        "Brustwirbelsäule",
+        "Lendenwirbelsäule",
+        "Kreuzbein",
+        "Steißbein"
+    ];
 
+    document.querySelectorAll(".dropzone")
+    .forEach((drop,index)=>{
+
+        if(drop.dataset.value !== solutions[index]){
+
+            correct = false;
+        }
+
+    });
+
+    const feedback =
+    document.getElementById("feedback");
+
+    if(correct){
+
+        feedback.innerHTML =
+        "✅ Super! Alles ist richtig.";
+
+        feedback.className =
+        "feedback correct";
+
+    }else{
+
+        feedback.innerHTML =
+        "❌ Überprüfe die Farben und die Zuordnung der Begriffe.";
+
+        feedback.className =
+        "feedback wrong";
+    }
 }
-
-});
-
 /* Begriffe */
 
 const solutions = [
@@ -690,25 +735,24 @@ feedback.className =
 
 function resetAll(){
 
-zones.forEach(z => {
+    document.querySelectorAll(".zone")
+    .forEach(zone => {
 
-z.style.background =
-"transparent";
+        zone.style.backgroundColor =
+        "transparent";
 
-z.dataset.selected = "";
+        zone.dataset.selected = "";
+    });
 
-});
+    document.querySelectorAll(".dropzone")
+    .forEach(drop => {
 
-drops.forEach(d => {
+        drop.innerHTML = "";
+        drop.dataset.value = "";
+    });
 
-d.innerHTML = "";
-d.dataset.value = "";
-
-});
-
-document.getElementById("feedback")
-.innerHTML = "";
-
+    document.getElementById("feedback")
+    .innerHTML = "";
 }
 
 </script>
